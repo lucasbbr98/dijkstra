@@ -199,19 +199,19 @@ class Path:
             self.alternate_paths = alternate_paths
 
     @property
-    def total_cost(self):
+    def total_cost(self) -> float:
         return self.path[-1].min_cost
 
     @property
-    def origin(self):
+    def origin(self) -> Vertex:
         return self.path[0]
 
     @property
-    def destination(self):
+    def destination(self) -> Vertex:
         return self.path[-1]
 
     @property
-    def result(self):
+    def result(self) -> str:
         str_path = 'Main route: '
         last_index = len(self.path) - 1
         for index, v in enumerate(self.path):
@@ -247,7 +247,7 @@ class Dijkstra:
 
         self.minimal_route = []
 
-    def solve(self, origin: str, destination: str):
+    def solve(self, origin: str, destination: str) -> Path:
         self.graph.set_origin(origin.upper())
         self.graph.set_destination(destination.upper())
 
