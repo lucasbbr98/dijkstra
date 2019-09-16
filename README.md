@@ -1,34 +1,39 @@
-# dijkstra
-An implementation of Dijkstra minimum path algorithm in plain Python
+# Dijkstra
 
-Example on how to setup and run the Dijkstra's algorithm:
+A Python implementation on Dijkstra's minimum algorithm
 
+## Getting Started
 
-1) Initiate an instance of Dijkstra's class
-d = Dijkstra()
+Download, clone or copy the code from the repository into a .py file
 
+### Prerequisites
 
-2) Add vertexes with any custom Label
-d.graph.add_vertexes(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+Python 3
 
+## Running the tests
 
-3) Adds connections between the vertexes. Labels must match with already added vertexes
-d.graph.add_connections([
-    ('A', 3, 'B'),
-    ('A', 1, 'C'),
-    ('B', 1, 'D'),
-    ('B', 5, 'G'),
-    ('C', 2, 'D'),
-    ('C', 5, 'F'),
-    ('D', 2, 'F'),
-    ('D', 4, 'E'),
-    ('E', 2, 'G'),
-    ('E', 1, 'H'),
-    ('F', 3, 'H')
-])
+You can simply run the file to see the given output. The example is by the end of the file, and it starts on the function
+
+```
+if __name__ == '__main__':
+```
+
+## Contributing
+
+Any contribution is very welcome to the project (Code, suggestions and even errors/bug reports). If you do wish to help, please contact me at: lucasbbr98@gmail.com
 
 
-4) Solve and get a Path object, with the results stored inside it
-min_path = d.solve(origin='A', destination='H')
+## Authors
+
+* **Lucas Arruda Bonservizzi** - *Initial work* - [lucasbbr98](https://github.com/lucasbbr98)
 
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Inspiration 1: I enjoyed an Operations Research class from professor Cleber Rocco at UNICAMP - FCA.
+* Inspiration 2: Most Dijkstra's algorithm I have found were not flexible or simple enough
+* Inspiration 3: Maybe my code can help someone around the world. Feel free to contact me if you need any help. See my details above at Contributing.
