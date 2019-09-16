@@ -1,12 +1,18 @@
 # dijkstra
 An implementation of Dijkstra minimum path algorithm in plain Python
 
-""" Example on how to setup and run the Dijkstra's algorithm """
-# Initiates an instance of Dijkstra's class
+Example on how to setup and run the Dijkstra's algorithm:
+
+
+1) Initiate an instance of Dijkstra's class
 d = Dijkstra()
-# Add vertexes with any custom Label
+
+
+2) Add vertexes with any custom Label
 d.graph.add_vertexes(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
-# Adds connections between the vertexes. Labels must match with already added vertexes
+
+
+3) Adds connections between the vertexes. Labels must match with already added vertexes
 d.graph.add_connections([
     ('A', 3, 'B'),
     ('A', 1, 'C'),
@@ -21,7 +27,8 @@ d.graph.add_connections([
     ('F', 3, 'H')
 ])
 
-# Solves and returns a Path object, with all the information stored inside it
+
+4) Solve and get a Path object, with the results stored inside it
 min_path = d.solve(origin='A', destination='H')
 
 
