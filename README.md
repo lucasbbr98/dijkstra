@@ -8,10 +8,13 @@ Download, clone or copy the code from the repository into a .py file
 
 ```
 """ Example on how to setup and run the Dijkstra's algorithm """
+
     # Initiates an instance of Dijkstra's class
     d = Dijkstra()
+    
     # Add vertexes with any custom Label
     d.graph.add_vertexes(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+    
     # Adds connections between the vertexes. Labels must match with already added vertexes
     d.graph.add_connections([
         ('A', 3, 'B'),
