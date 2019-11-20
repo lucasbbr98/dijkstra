@@ -42,7 +42,7 @@ class Connection:
 
 
 class Graph:
-    """ Represents a whole Graph. It also facilitates developers to create them with helper functions """
+    """ Represents a whole Graph. """
     def __init__(self, vertexes=None, connections=None):
         if connections is None:
             connections = []
@@ -190,7 +190,7 @@ class Graph:
 
 
 class Path:
-    """ Represents an optimal path from Dijkstra algorithm, as well as similar cost paths """
+    """ Represents an optimal path from Dijkstra algorithm """
     def __init__(self, main_path: list, alternate_paths=None):
         self.path = main_path
         if alternate_paths is None:
@@ -247,10 +247,12 @@ class Dijkstra:
 
         self.minimal_route = []
 
+    # Actual algorithm
     def solve(self, origin: str, destination: str) -> Path:
         self.graph.set_origin(origin.upper())
         self.graph.set_destination(destination.upper())
 
+        # Test if all vertexes have at least one connection
         for v in self.graph.vertexes:
             vertex_has_connection = False
             for c in self.graph.connections:
@@ -264,21 +266,28 @@ class Dijkstra:
 
         # Actual algorithm
         for _ in self.graph.vertexes:
-            current_vertex = min(self.graph.unvisited_vertexes, key=attrgetter('min_cost'))
-            current_vertex.has_visited = True
-            current_neighbours = current_vertex.unvisited_neighbours
+            # Gets minimum unvisited vertex
+            current_vertex = min(self.graph.unvisited_vertexes, key=attrgetter('min_cost'))  # origin = 0
+            current_vertex.has_visited = True   # Sets as visited
+            current_neighbours = current_vertex.unvisited_neighbours    # Gets current vertex neighbours
+
+            """
+            # You may add this to stop when the algorithm arrives at the destination vertex
+            if current_vertex == self.graph.destination_vertex:
+                break
+            """
+            # For each current vertex neighbours
             for n in current_neighbours:
+                # Get cost from current vertex to neighbour (n)
                 cost_to_neighbour = self.graph.get_cost_from_to(current_vertex, n)
-                current_cost = current_vertex.min_cost + cost_to_neighbour
+                current_cost = current_vertex.min_cost + cost_to_neighbour  # Accumulated cost
 
-                if current_cost < n.min_cost:
-                    n.min_cost = current_cost
-                    n.coming_from = current_vertex
-                elif current_cost == n.min_cost:
-                    n.ties.append(current_vertex)
+                if current_cost < n.min_cost:       # If accumulated cost < neighbour minimum cost
+                    n.min_cost = current_cost       # Labels neighbour minimum cost
+                    n.coming_from = current_vertex  # Labels where am I coming from
 
-                if n == self.graph.destination_vertex:
-                    break
+                elif current_cost == n.min_cost:    # If accumulated cost == neighbour minimum cost
+                    n.ties.append(current_vertex)   # Labels as a tie
 
         # Reversing back to get the result
         min_path = [self.graph.destination_vertex]
@@ -310,24 +319,25 @@ if __name__ == '__main__':
     # Initiates an instance of Dijkstra's class
     d = Dijkstra()
     # Add vertexes with any custom Label
-    d.graph.add_vertexes(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
+    d.graph.add_vertexes(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
     # Adds connections between the vertexes. Labels must match with already added vertexes
     d.graph.add_connections([
-        ('A', 3, 'B'),
-        ('A', 1, 'C'),
-        ('B', 1, 'D'),
-        ('B', 5, 'G'),
-        ('C', 2, 'D'),
-        ('C', 5, 'F'),
-        ('D', 2, 'F'),
-        ('D', 4, 'E'),
-        ('E', 2, 'G'),
-        ('E', 1, 'H'),
-        ('F', 3, 'H')
+        ('A', 5, 'B'),
+        ('A', 4, 'C'),
+        ('A', 8, 'D'),
+        ('B', 7, 'E'),
+        ('C', 5, 'E'),
+        ('C', 11, 'F'),
+        ('D', 12, 'E'),
+        ('D', 10, 'F'),
+        ('E', 9, 'G'),
+        ('F', 6, 'G')
     ])
 
     # Solves and returns a Path object, with all the information stored inside it
-    min_path = d.solve(origin='A', destination='H')
+    min_path = d.solve(origin='A', destination='G')
+    print(min_path)
+
     origin = min_path.origin  # Vertex object representing the origin
     destination = min_path.destination  # Vertex object representing the final destination
     total_cost = min_path.total_cost  # The total minimum cost found from origin to destination
